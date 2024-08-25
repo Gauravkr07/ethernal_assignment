@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./Dockerfile.asgi
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app 
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: postgres_
+    environment:
+      POSTGRES_DB: machine_service
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_HOST: database
+    volumes:
+      - pgdata:/var/lib/postgresql/data
